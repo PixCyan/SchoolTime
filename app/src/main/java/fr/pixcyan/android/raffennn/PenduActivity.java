@@ -83,45 +83,51 @@ public class PenduActivity extends ActionBarActivity {
 
     public void valider(View view) {
         EditText editT = (EditText) findViewById(R.id.editText);
-        this.comparerLettre(editT.getText().charAt(0));
-        char[] mot = this.motActuel;
-        for(int i = 0; i < this.tailleMot(); i++) {
-            TextView textV = (TextView) findViewById(i);
-            textV.setText(Character.toString(mot[i]));
-        }
-        editT.setText("");
-        ImageView imgPendu = (ImageView) findViewById(R.id.imgPendu);
-        int[] id = {R.drawable.pendu1, R.drawable.pendu2, R.drawable.pendu3,
-                R.drawable.pendu4, R.drawable.pendu5,
-                R.drawable.pendu6, R.drawable.pendu7,
-                R.drawable.pendu8, R.drawable.pendu9,
-                R.drawable.pendu10};
-        imgPendu.setBackgroundResource(id[this.pointPerdu]);
-        if(this.perduPendu()) {
-            Toast.makeText(this, "PERDU ! Le mot était : "+ this.motAtrouver.getLibelle(), Toast.LENGTH_LONG).show();
-            Intent intent = new Intent(this, PerduPenduActivity.class);
-            intent.putExtra(COMPTE, login);
-            startActivityForResult(intent, PERDU_REQUEST);
-        } else if(this.gagnerPendu()) {
-            Intent intent = new Intent(this, GagnePenduActivity.class);
-            this.score++;
-            Toast.makeText(this, "GAGNE : "+ this.motAtrouver.getLibelle(), Toast.LENGTH_LONG).show();
-            if (compte != null) {
-                daoCompte.open();
-                compte.setScore_pendu(compte.getScore_pendu() + score);
-                daoCompte.update(this.compte);
-                daoCompte.close();
-                Toast.makeText(this, "Score = " + this.score, Toast.LENGTH_LONG).show();
+        if(editT.getText().toString().equals("")) {
+            Toast.makeText(this, "Vous n'avez entré aucune lettre !", Toast.LENGTH_LONG).show();
+        }else if (!editT.getText().toString().matches("[a-zA-Z]")) {
+            Toast.makeText(this, "Vous ne pouvez entrer que des lettres !", Toast.LENGTH_LONG).show();
+        } else {
+            this.comparerLettre(editT.getText().charAt(0));
+            char[] mot = this.motActuel;
+            for(int i = 0; i < this.tailleMot(); i++) {
+                TextView textV = (TextView) findViewById(i);
+                textV.setText(Character.toString(mot[i]));
             }
-            intent.putExtra(COMPTE, login);
-            startActivityForResult(intent, GAGNE_REQUEST);
+            editT.setText("");
+            ImageView imgPendu = (ImageView) findViewById(R.id.imgPendu);
+            int[] id = {R.drawable.pendu1, R.drawable.pendu2, R.drawable.pendu3,
+                    R.drawable.pendu4, R.drawable.pendu5,
+                    R.drawable.pendu6, R.drawable.pendu7,
+                    R.drawable.pendu8, R.drawable.pendu9,
+                    R.drawable.pendu10};
+            imgPendu.setBackgroundResource(id[this.pointPerdu]);
+            if(this.perduPendu()) {
+                Toast.makeText(this, "PERDU ! Le mot était : "+ this.motAtrouver.getLibelle(), Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(this, PerduPenduActivity.class);
+                intent.putExtra(COMPTE, login);
+                startActivityForResult(intent, PERDU_REQUEST);
+            } else if(this.gagnerPendu()) {
+                Intent intent = new Intent(this, GagnePenduActivity.class);
+                this.score++;
+                Toast.makeText(this, "GAGNE : "+ this.motAtrouver.getLibelle(), Toast.LENGTH_LONG).show();
+                if (compte != null) {
+                    daoCompte.open();
+                    compte.setScore_pendu(compte.getScore_pendu() + score);
+                    daoCompte.update(this.compte);
+                    daoCompte.close();
+                    Toast.makeText(this, "Score = " + this.score, Toast.LENGTH_LONG).show();
+                }
+                intent.putExtra(COMPTE, login);
+                startActivityForResult(intent, GAGNE_REQUEST);
+            }
+            TextView tv = (TextView) findViewById(R.id.lEntrees);
+            String chaine = "";
+            for(Character c: lettresEntrees) {
+                chaine += c + " - ";
+            }
+            tv.setText("Lettre déjà entrées : " + chaine);
         }
-        TextView tv = (TextView) findViewById(R.id.lEntrees);
-        String chaine = "";
-        for(Character c: lettresEntrees) {
-            chaine += c + " - ";
-        }
-        tv.setText("Lettre déjà entrées : " + chaine);
     }
 
     public void aide(View view) {

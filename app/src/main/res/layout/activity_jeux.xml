@@ -136,5 +136,4 @@
             android:layout_alignRight="@+id/titre"
             android:layout_alignEnd="@+id/titre"/>
 
-
 </RelativeLayout>

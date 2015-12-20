@@ -9,6 +9,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.Toast;
 
 public class JeuxActivity extends ActionBarActivity {
     public final static int JEUX_REQUEST = 0;
@@ -122,4 +123,5 @@ public class JeuxActivity extends ActionBarActivity {
         intent.putExtra(COMPTE, login);
         startActivityForResult(intent, PENDU_REQUEST);
     }
+
 }
