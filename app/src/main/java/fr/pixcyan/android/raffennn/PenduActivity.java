@@ -102,7 +102,6 @@ public class PenduActivity extends ActionBarActivity {
             Intent intent = new Intent(this, PerduPenduActivity.class);
             intent.putExtra(COMPTE, login);
             startActivityForResult(intent, PERDU_REQUEST);
-
         } else if(this.gagnerPendu()) {
             Intent intent = new Intent(this, GagnePenduActivity.class);
             this.score++;

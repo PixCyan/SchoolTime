@@ -107,7 +107,7 @@ public class SudokuGrid9x9 implements ISudokuGrid {
             for(int j = 0 ; j < this.grid[0].length ; j++)
                 cells.add(this.grid[i][j]);
         Collections.shuffle(cells);
-        for(int i = 0 ; i < nbOfHoles; i++)
+        for(int i = 0 ; i < 2; i++)
             cells.get(i).setInitialValue(ISudokuCell.HOLE_VALUE);
     }
 

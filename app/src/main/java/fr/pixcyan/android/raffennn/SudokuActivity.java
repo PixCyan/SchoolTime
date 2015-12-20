@@ -32,8 +32,13 @@ public class SudokuActivity extends ActionBarActivity {
     private Compte compte;
     private int score;
 
-    public static int gridToViewCoord(int i, int j) {
-        int k = i * 9 + j;
+    /**
+     * Convertit un indice utilisé par la vue en un indice utilisé par le modèle et inversement.
+     *
+     * @param k indice à convertir
+     * @return indice convertit
+     */
+    public static int convertIndex(int k) {
         int xGrid = k % 9 / 3;
         int yGrid = k / 27;
         int numGrid = yGrid * 3 + xGrid;
@@ -41,12 +46,27 @@ public class SudokuActivity extends ActionBarActivity {
         return numGrid * 9 + numCell; // n
     }
 
-    public static int[] viewToGridCoord(int n) {
-        int numGrid = n / 9;
-        int numCell = n % 9;
-        int i = numGrid / 3 + numCell / 3;
-        int j = numGrid % 3 + numCell % 3;
-        return new int[]{i, j};
+    /**
+     * Convertit la coordonnée d'une case d'un sudoku représenté par un tableauu 1D en coordonnées
+     * équivalentes dans un tableau 2D.
+     *
+     * @param n coordonnée à convertir
+     * @return coordonnées converties
+     */
+    public static int[] indexToCoord(int n) {
+        return new int[]{n / 9, n % 9};
+    }
+
+    /**
+     * Convertit les coordonnées d'une case d'un sudoku représenté par un tableauu 2D en une
+     * coordonnée équivalente dans un tableau 1D.
+     *
+     * @param i coordonnée à convertir
+     * @param j coordonnée à convertir
+     * @return coordonnée convertie
+     */
+    public static int coordToIndex(int i, int j) {
+        return i * 9 + j;
     }
 
     private String niveau;
@@ -95,7 +115,7 @@ public class SudokuActivity extends ActionBarActivity {
         int[] tab = new int[81];
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
-                tab[gridToViewCoord(i, j)] = Integer.parseInt(this.sudokuGame.getValueAt(i, j));
+                tab[convertIndex(coordToIndex(i, j))] = Integer.parseInt(this.sudokuGame.getValueAt(i, j));
             }
         }
         this.sudokuTab = tab;
@@ -209,11 +229,12 @@ public class SudokuActivity extends ActionBarActivity {
                                 //Toast.makeText(SudokuActivity.this, Integer.toString(np.getValue()), Toast.LENGTH_SHORT).show();
                                 res.setText(Integer.toString(np.getValue()));
                                 dialogue.dismiss();
-                                int[] vtg = viewToGridCoord(position);
+                                int[] vtg = indexToCoord(convertIndex(positionDepart + position));
                                 System.out.println("vtg == " + vtg[0] + "  " + vtg[1]);
-                                System.out.println("Solution = " +sudokuGame.getSolutionAt(vtg[0], vtg[1]) );
+                                System.out.println("Solution = " + sudokuGame.getSolutionAt(vtg[0], vtg[1]) );
                                 if(!(sudokuGame.getSolutionAt(vtg[0], vtg[1]).equals(res.getText().toString()))) {
                                     Toast.makeText(SudokuActivity.this, "FAUX", Toast.LENGTH_SHORT).show();
+                                } else {
                                     sudokuGame.setValueAt(vtg[0], vtg[1], Integer.parseInt(res.getText().toString()));
                                 }
 
