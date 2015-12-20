@@ -116,7 +116,6 @@ public class PenduActivity extends ActionBarActivity {
                     compte.setScore_pendu(compte.getScore_pendu() + score);
                     daoCompte.update(this.compte);
                     daoCompte.close();
-                    Toast.makeText(this, "Score = " + this.score, Toast.LENGTH_LONG).show();
                 }
                 intent.putExtra(COMPTE, login);
                 startActivityForResult(intent, GAGNE_REQUEST);
