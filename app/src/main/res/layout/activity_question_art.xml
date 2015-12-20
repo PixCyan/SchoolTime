@@ -1,0 +1,94 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingRight="@dimen/activity_horizontal_margin"
+                android:paddingTop="@dimen/activity_vertical_margin"
+                android:paddingBottom="@dimen/activity_vertical_margin"
+                tools:context="fr.pixcyan.android.raffennn.QuestionArtActivity">
+
+    <Button
+            android:text="Aide"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="aide"
+            android:id="@+id/boutonAide"
+            android:layout_alignTop="@+id/butouMenu"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"/>
+
+    <TextView
+            android:text="Question :"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/question"
+            android:textSize="20dp"/>
+
+    <RadioGroup
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/rg"
+            android:layout_below="@+id/question">
+
+        <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/rep1"/>
+
+        <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/rep2"/>
+
+        <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/rep3"/>
+    </RadioGroup>
+
+    <Button
+            android:text="Valider"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="valider"
+            android:id="@+id/valider"
+            android:layout_below="@+id/rg"/>
+
+    <Button
+            android:text="Question suivante =>"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="changerQuestion"
+            android:id="@+id/suivant"
+            android:layout_toRightOf="@+id/valider"
+            android:layout_below="@+id/rg"/>
+
+    <TextView
+            android:text=""
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/valider"
+            android:textSize="30dp"
+            android:id="@+id/resultat"/>
+
+    <Button
+            android:text="Quitter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="quitter"
+            android:id="@+id/boutonQuitter"
+            android:layout_alignTop="@+id/butouMenu"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"/>
+
+    <Button
+            android:text="Menu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="retourMenu"
+            android:id="@+id/butouMenu"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"/>
+
+</RelativeLayout>
