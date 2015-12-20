@@ -214,7 +214,6 @@ public class SudokuActivity extends ActionBarActivity {
                 res.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        //Toast.makeText(res.getContext(), getItem(position).toString(), Toast.LENGTH_SHORT).show();
                         final Dialog dialogue = new Dialog(SudokuActivity.this);
                         dialogue.setTitle("Choisissez un nombre : ");
                         dialogue.setContentView(R.layout.number_picker);
@@ -226,15 +225,10 @@ public class SudokuActivity extends ActionBarActivity {
                         bouton.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                //Toast.makeText(SudokuActivity.this, Integer.toString(np.getValue()), Toast.LENGTH_SHORT).show();
                                 res.setText(Integer.toString(np.getValue()));
                                 dialogue.dismiss();
                                 int[] vtg = indexToCoord(convertIndex(positionDepart + position));
-                                System.out.println("vtg == " + vtg[0] + "  " + vtg[1]);
-                                System.out.println("Solution = " + sudokuGame.getSolutionAt(vtg[0], vtg[1]) );
-                                if(!(sudokuGame.getSolutionAt(vtg[0], vtg[1]).equals(res.getText().toString()))) {
-                                    Toast.makeText(SudokuActivity.this, "FAUX", Toast.LENGTH_SHORT).show();
-                                } else {
+                                if(sudokuGame.getSolutionAt(vtg[0], vtg[1]).equals(res.getText().toString())) {
                                     sudokuGame.setValueAt(vtg[0], vtg[1], Integer.parseInt(res.getText().toString()));
                                 }
 
